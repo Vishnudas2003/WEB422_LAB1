@@ -54,8 +54,12 @@ app.put("/api/movies/:id", async(req,res) => {
         });
 });
 
-app.delete("/api/movies/:id", (req,res) => {
-    db.deleteMovieById(req.params.id).then(() => {
+app.get("/",(req,res)=>{
+    res.json({message: "API listening"});
+});
+
+app.delete("/api/movies/:id", async(req,res) => {
+    await db.deleteMovieById(req.params.id).then(() => {
         res.json({message: "movie deleted"});
         }).catch((err) => {
             res.status(500).json({message: err.message});
